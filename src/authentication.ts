@@ -1,11 +1,10 @@
 import { verify } from 'jsonwebtoken';
-import IUserModel = require("./app/model/interfaces/UserModel");
+import { IUserModel } from './app/model/interfaces/IUserModel';
 
 export class Authentication {
     public static checkAuthentication(req): Promise<IUserModel | null> {
         let token: string = req.body.token || req.query.token ||
             req.get('x-access-token') || req.get('authentication') || req.get('authorization') || undefined;
-
         if (token === undefined) {
             // there is no token!
             //return(false);
@@ -46,8 +45,5 @@ export class Authentication {
                     });
                 }
             })
-
     }
-
-    
 }

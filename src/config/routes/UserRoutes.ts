@@ -13,17 +13,25 @@ class UserRoutes {
 
         var controller = this._userController;
 
-        router.post("/users", controller.create);
-        router.put("/users/:_id", controller.update);
-        router.get("/users/:_id", controller.findById);
-        router.delete("/users/:_id", controller.delete);
+
+ 
         router.get("/users/getProfile/:_id", controller.getProfile);
-        router.post('/users/login', controller.login);
+        router.post('/login', controller.login);
+        router.post("/users", controller.create);
+
 
         //Authorize
         router.use(Authentication.authenticatedRoute)
-        router.get("/users", controller.retrieve);
+        router.get("/myProfile", controller.myProfile);
 
+
+        //Authorize Admin
+        //router.use(Authentication.adminRoute)
+        router.get("/users/:_id", controller.findById);
+
+        router.get("/users", controller.retrieve);
+        router.delete("/users/:_id", controller.delete);
+        router.put("/users/:_id", controller.update);
         return router;
     }
 

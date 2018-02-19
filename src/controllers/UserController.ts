@@ -2,9 +2,9 @@
 import express = require("express");
 import UserBusiness = require("./../app/business/UserBusiness");
 import IBaseController = require("./interfaces/base/BaseController");
-import IUserModel = require("./../app/model/interfaces/UserModel");
-
 import * as jwt from 'jsonwebtoken';
+import { Authentication } from '../authentication';
+import { IUserModel } from '../app/model/interfaces/IUserModel';
 
 
 
@@ -109,6 +109,39 @@ class UserController implements IBaseController<UserBusiness> {
         }
     }
 
+    myProfile(req: express.Request, res: express.Response): void {
+        try {
+            Authentication.checkAuthentication(req)
+                .then(isAuth => {
+                    console.log(isAuth);
+                    if (isAuth) {
+                        var userBusiness = new UserBusiness();
+                        userBusiness.getProfile(isAuth._id, (error, user) => {
+                            if (error) {
+                                return res.json({
+                                    'success': false,
+                                    'error': error
+                                });
+                            } else {
+                                return res.json({
+                                    'success': true,
+                                    'user': user
+                                });
+                            }
+                        });
+                    }
+                });
+        } catch (e) {
+            console.log(e);
+            return res.json({
+                'success': false,
+                'error': e
+            });
+        }
+    }
+
+
+
     login(req: express.Request, res: express.Response): void {
         try {
             var username: string = req.body.username;
@@ -141,7 +174,6 @@ class UserController implements IBaseController<UserBusiness> {
             res.send({ "error": "error in your request" });
         }
     }
-
 
 }
 export = UserController;    

@@ -1,6 +1,8 @@
-import IUserModel = require("./interfaces/UserModel");
+import { IQuestionModel } from './interfaces/IQuestionModel';
+import { IUserModel } from './interfaces/IUserModel';
+import mongoose = require('mongoose');
 
-class UserModel {
+export class UserModel {
     private _userModel: IUserModel;
 
     constructor(user: IUserModel) {
@@ -18,7 +20,9 @@ class UserModel {
     get password(): string {
         return this._userModel.password;
     }
+    get questions(): string[] {
+        return this._userModel.questions;
+    }
 }
 
 Object.seal(UserModel);
-export = UserModel;

@@ -1,6 +1,6 @@
+import { IUserModel } from '../model/interfaces/IUserModel';
 import UserRepository = require("./../repository/UserRepository");
 import IUserBusiness = require("./interfaces/UserBusiness");
-import IUserModel = require("./../model/interfaces/UserModel");
 
 class UserBusiness implements IUserBusiness {
     private _userRepository: UserRepository;

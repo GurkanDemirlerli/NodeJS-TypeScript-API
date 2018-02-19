@@ -17,7 +17,7 @@ class DataAccess {
             console.log("MongoDB connected.");
         });
 
-        this.mongooseInstance = Mongoose.connect(Constants.DB_CONNECTION_STRING, { useMongoClient: true });
+        this.mongooseInstance = Mongoose.connect(Constants.DB_CONNECTION_STRING);
         this.mongooseInstance.Promise = global.Promise;
         return this.mongooseInstance;
     }

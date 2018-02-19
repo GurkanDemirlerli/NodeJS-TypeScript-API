@@ -1,38 +1,30 @@
-import { IUserModel } from '../../model/interfaces/IUserModel';
+import { IQuestionModel } from '../../model/interfaces/IQuestionModel';
 import { Schema } from 'mongoose';
 import DataAccess = require("./../../dataAccess/DataAccess");
 
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
 
-class UserSchema {
+class QuestionSchema {
 
     static get schema() {
         var schema = new Schema({
-            firstName: {
+            title: {
                 type: String,
                 required: true
             },
-            lastName: {
+            content: {
                 type: String,
                 required: true
             },
-            username: {
-                type: String,
-                required: true
-            },
-            password: {
-                type: String,
-                required: true
-            },
-            questions: [{
+            user: {
                 type: Schema.Types.ObjectId,
-                ref: 'Question'
-            }]
+                ref: 'User'
+            }
         });
 
         return schema;
     }
 }
-var schema = mongooseConnection.model<IUserModel>("User", UserSchema.schema);
+var schema = mongooseConnection.model<IQuestionModel>("Question", QuestionSchema.schema);
 export = schema;
