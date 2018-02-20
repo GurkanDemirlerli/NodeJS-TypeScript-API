@@ -12,14 +12,14 @@ const mongoose = require('mongoose');
 /* ==========================================================================
 	-- Utils
 ========================================================================== */
-mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/Playground", (err) => {
-    if (err) {
-        console.log('Could Not connect to database: ', err);
-    } else {
-        console.log('Connected to database: ' + "Playground");
-    }
-});
+// mongoose.Promise = global.Promise;
+// mongoose.connect("mongodb://localhost/Playground", (err) => {
+//     if (err) {
+//         console.log('Could Not connect to database: ', err);
+//     } else {
+//         console.log('Connected to database: ' + "Playground");
+//     }
+// });
 
 const port = process.env.PORT || GLOBAL.PORT
 const environment = process.env.NODE_ENV || GLOBAL.PRODUCTION

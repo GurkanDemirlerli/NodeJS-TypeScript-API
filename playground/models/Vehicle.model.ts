@@ -1,8 +1,9 @@
-// import { IUserModel } from '../../model/interfaces/IUserModel';
+import DataAccess =require('../dataAccess/Connection');
+import { Schema } from 'mongoose';
+import { IVehicle } from './IVehicle';
 // import DataAccess = require("./../../dataAccess/DataAccess");
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-const Schema = mongoose.Schema;
+var mongoose = DataAccess.mongooseInstance;
+var mongooseConnection = DataAccess.mongooseConnection;
 
 class VehicleSchema {
 
@@ -12,7 +13,7 @@ class VehicleSchema {
                 type: String,
                 required: true
             },
-            model: {
+            mod: {
                 type: String,
                 required: true
             },
@@ -24,4 +25,5 @@ class VehicleSchema {
         return schema;
     }
 }
-module.exports = mongoose.model('Vehicle', VehicleSchema.schema);
+var schema = mongooseConnection.model<IVehicle>('Vehicle', VehicleSchema.schema);
+export = schema;

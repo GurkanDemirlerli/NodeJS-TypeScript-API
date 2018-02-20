@@ -1,3 +1,4 @@
+import { VehicleRepository } from './../dataAccess/VehicleRepository';
 import {
     Request as req,
     Response as res,
@@ -13,19 +14,19 @@ import 'reflect-metadata';
 export class VehiclesController {
     public static url = '/vehicles';
 
-    constructor( @inject(IOCTYPES.VEHICLE_SERVICE) private _vehicleService: IVehicleService) {
+    constructor( @inject(IOCTYPES.VEHICLE_REPOSITORY) private _vehicleRepository: VehicleRepository) {
 
     }
 
     add(req, res, next) {
-        this._vehicleService.create(req.body, (error, result) => {
+        this._vehicleRepository.create(req.body, (error, result) => {
             if (error) res.send({ "error": "error" });
             else res.send(result);
         });
     }
 
     listAll(req, res, next) {
-        this._vehicleService.listAll((error, result) => {
+        this._vehicleRepository.retrieve((error, result) => {
             if (error) res.send({ "error": "error" });
             else res.send(result);
         });
