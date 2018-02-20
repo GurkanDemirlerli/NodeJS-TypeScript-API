@@ -1,7 +1,10 @@
 import { IUserModel } from '../model/interfaces/IUserModel';
-import UserRepository = require("./../repository/UserRepository");
-import IUserBusiness = require("./interfaces/UserBusiness");
+import { UserRepository } from '../repository/UserRepository';
+import { IUserBusiness } from './interfaces/IUserBusiness';
+import { injectable, inject, named } from 'inversify';
+import 'reflect-metadata';
 
+@injectable()
 class UserBusiness implements IUserBusiness {
     private _userRepository: UserRepository;
 

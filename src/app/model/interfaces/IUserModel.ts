@@ -7,4 +7,5 @@ export interface IUserModel extends mongoose.Document {
     username: string;
     password: string;
     questions:  string[];
+    createdAt: Date;
 }

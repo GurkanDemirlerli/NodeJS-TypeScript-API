@@ -23,6 +23,9 @@ export class UserModel {
     get questions(): string[] {
         return this._userModel.questions;
     }
+    get createdAt():Date{
+        return this._userModel.createdAt;
+    }
 }
 
 Object.seal(UserModel);

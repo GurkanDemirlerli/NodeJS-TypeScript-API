@@ -1,6 +1,5 @@
-import Read = require("./../common/Read");
-import Write = require("./../common/Write");
-interface BaseBusiness<T> extends Read<T>, Write<T> 
-{
+import { Read } from '../common/Read';
+import { Write } from '../common/Write';
+
+export interface IBaseBusiness<T> extends Read<T>, Write<T> {
 }
-export = BaseBusiness;

@@ -25,6 +25,10 @@ class UserSchema {
                 type: String,
                 required: true
             },
+            createdAt: {
+                type: Date,
+                default: Date.now()
+            },
             questions: [{
                 type: Schema.Types.ObjectId,
                 ref: 'Question'

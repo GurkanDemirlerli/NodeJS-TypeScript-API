@@ -1,6 +1,6 @@
 import { IQuestionModel } from './../../model/interfaces/IQuestionModel';
-import BaseBusiness = require("./base/BaseBusiness");
+import { IBaseBusiness } from './base/BaseBusiness';
 
-export interface IQuestionBusiness extends BaseBusiness<IQuestionModel> {
+export interface IQuestionBusiness extends IBaseBusiness<IQuestionModel> {
     
 }

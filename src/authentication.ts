@@ -1,5 +1,6 @@
 import { verify } from 'jsonwebtoken';
 import { IUserModel } from './app/model/interfaces/IUserModel';
+import Constants = require("./config/constants/Constants");
 
 export class Authentication {
     public static checkAuthentication(req): Promise<IUserModel | null> {
@@ -11,7 +12,7 @@ export class Authentication {
             return Promise.resolve(null)
         } else {
             return new Promise((resolve, reject) => {
-                verify(token, 'My-Secret', (err: Error, decoded: any): boolean | any => {
+                verify(token, Constants.ServerSecret, (err: Error, decoded: any): boolean | any => {
                     if (err) {
                         resolve(null);
                     } else {

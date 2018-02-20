@@ -1,15 +1,21 @@
+import { Container } from 'inversify';
+import { QuestionRoutes } from '../QuestionRoutes';
 import express = require("express");
 import UserRoutes = require("./../UserRoutes");
-import QuestionRoutes = require("./../QuestionRoutes");
+// var app = express();
+export class BaseRoutes {
 
-var app = express();
-class BaseRoutes {
-    
-    get routes() {
-        app.use("/", new QuestionRoutes().routes);
-        app.use("/", new UserRoutes().routes);
-
-        return app;
+    public static configureBaseRoutes(app: express.Express, container: Container): void {
+        app.use("/", QuestionRoutes.configureRoutes(container));
+        // app.use("/", new UserRoutes().routes);
     }
+
+
+    // get routes() {
+    //     app.use("/", new QuestionRoutes().routes);
+    //     app.use("/", new UserRoutes().routes);
+
+    //     return app;
+    // }
 }
-export = BaseRoutes;
+// export = BaseRoutes;

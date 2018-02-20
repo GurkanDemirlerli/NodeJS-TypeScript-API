@@ -1,13 +1,14 @@
 
-import express = require("express");
-import UserBusiness = require("./../app/business/UserBusiness");
-import IBaseController = require("./interfaces/base/BaseController");
+import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
+import UserBusiness = require("./../app/business/UserBusiness");
 import { Authentication } from '../authentication';
 import { IUserModel } from '../app/model/interfaces/IUserModel';
+import { IBaseController } from './interfaces/base/BaseController';
+import { injectable, inject, named } from 'inversify';
+import 'reflect-metadata';
 
-
-
+@injectable()
 class UserController implements IBaseController<UserBusiness> {
 
     create(req: express.Request, res: express.Response): void {
