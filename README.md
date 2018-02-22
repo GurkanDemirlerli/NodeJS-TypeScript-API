@@ -1,1 +1,1 @@
-"NodeJS-TypeScript-API" 
+NodeJS TypeScript Express Inversify Api-Playground
