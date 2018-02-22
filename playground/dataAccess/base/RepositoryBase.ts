@@ -7,17 +7,49 @@ export class RepositoryBase<T extends mongoose.Document> {
 
     private _model: mongoose.Model<mongoose.Document>;
 
-    constructor(@unmanaged() schemaModel: mongoose.Model<mongoose.Document>) {
+    constructor( @unmanaged() schemaModel: mongoose.Model<mongoose.Document>) {
         this._model = schemaModel;
     }
 
-    create(item: T, callback: (error: any, result: any) => void) {
-        this._model.create(item, callback);
+
+
+    create(item: T, callback?: (error: any, result: T) => void): Promise<T> {
+        let self = this;
+        let p = new Promise<T>((resolve, reject) => {
+            self._model.create(item, (err, res) => {
+                if (callback) {
+                    callback(err, <T>res);
+                }
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(<T>res);
+                }
+            });
+        });
+        return p;
+        // this._model.create(item, callback);
 
     }
 
-    retrieve(callback: (error: any, result: any) => void) {
-        this._model.find({}, callback)
+    retrieve(callback?: (error: any, result: T[]) => void): Promise<T[]> {
+        let self = this;
+        let p = new Promise<T[]>((resolve, reject) => {
+            self._model.find({}, (err, res) => {
+                if (callback) {
+                    callback(err, <T[]>res);
+                }
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(<T[]>res);
+                }
+            });
+        });
+
+        return p;
     }
 
     update(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {

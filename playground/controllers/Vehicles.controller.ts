@@ -19,16 +19,19 @@ export class VehiclesController {
     }
 
     add(req, res, next) {
-        this._vehicleRepository.create(req.body, (error, result) => {
-            if (error) res.send({ "error": "error" });
-            else res.send(result);
+        this._vehicleRepository.create(req.body).then((vehicle) => {
+            res.send(vehicle);
+        }).catch((error) => {
+            res.send(error);
         });
     }
 
     listAll(req, res, next) {
-        this._vehicleRepository.retrieve((error, result) => {
-            if (error) res.send({ "error": "error" });
-            else res.send(result);
+        this._vehicleRepository.retrieve().then((vehicles) => {
+            res.send(vehicles);
+        }).catch((error) => {
+            res.send(error);
         });
+
     }
 }
