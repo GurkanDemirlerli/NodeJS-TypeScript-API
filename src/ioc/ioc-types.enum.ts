@@ -1,3 +1,4 @@
 export enum IOCTYPES {
-    QUESTION_BUSINESS = 'QuestionBusiness'
+    CATEGORY_REPOSITORY = 'CategoryRepositor',
+    CATEGORY_SERVICE = 'CategoryService'
 }

@@ -1,23 +1,33 @@
-import { Container } from 'inversify';
-import { IOCTYPES } from './ioc-types.enum';
-import { IQuestionBusiness } from '../app/business/interfaces/IQuestionBusiness';
-import { QuestionBusiness } from '../app/business/QuestionBusiness';
-import { QuestionController } from '../controllers/QuestionController';
-
+import { CategoryRepository } from './../repository/CategoryRepository';
+import { Container } from 'inversify'
+import { IOCTYPES } from './ioc-types.enum'
+import { ICategoryRepository } from '../repository/interfaces/ICategoryRepository';
+import { ICategoryService } from '../business/interfaces/ICategoryService';
+import { CategoryService } from '../business/CategoryService';
+import { CategoriesController } from '../controllers/CategoriesController';
 
 export module IOC {
-    export const container = new Container();
+    export const container = new Container()
 
     export function configureContainer(): Container {
-        container
-            .bind<QuestionController>(QuestionController)
-            .toSelf();
 
+        //================== controllers =====================
         container
-            .bind<IQuestionBusiness>(IOCTYPES.QUESTION_BUSINESS)
-            .to(QuestionBusiness)
-            .inSingletonScope();
+            .bind<CategoriesController>(CategoriesController)
+            .toSelf()
 
-        return container;
+        //================== repositories ===================
+        container
+            .bind<ICategoryRepository>(IOCTYPES.CATEGORY_REPOSITORY)
+            .to(CategoryRepository)
+
+        //================== services ========================
+        container
+            .bind<ICategoryService>(IOCTYPES.CATEGORY_SERVICE)
+            .to(CategoryService)
+        // .inSingletonScope()
+
+        return container
     }
+
 }
