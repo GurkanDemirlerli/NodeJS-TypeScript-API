@@ -1,4 +1,4 @@
-import { CategoryService } from './../business/CategoryService';
+import { ICategoryService } from '../business';
 import {
     Request as req,
     Response as res,
@@ -6,14 +6,13 @@ import {
 } from 'express';
 import { injectable, inject } from 'inversify';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
-import { ICategoryService } from '../business/interfaces/ICategoryService';
 import 'reflect-metadata';
 
 @injectable()
 export class CategoriesController {
     public static url = '/categories';
 
-    constructor( @inject(IOCTYPES.CATEGORY_SERVICE) private _categoryService: CategoryService) {
+    constructor( @inject(IOCTYPES.CATEGORY_SERVICE) private _categoryService: ICategoryService) {
 
     }
     addCategory(req, res, next) {

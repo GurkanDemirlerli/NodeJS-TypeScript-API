@@ -1,15 +1,14 @@
-import { ICategoryService } from './interfaces/ICategoryService';
+import { ICategoryService } from './';
 import { injectable, inject } from 'inversify';
-import 'reflect-metadata';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
-import { CategoryRepository } from '../repository/CategoryRepository';
 import { ICategory } from '../models/abstract/ICategory';
-
+import { ICategoryRepository } from '../repository';
+import 'reflect-metadata';
 
 @injectable()
 export class CategoryService implements ICategoryService {
 
-    constructor( @inject(IOCTYPES.CATEGORY_REPOSITORY) private _categoryRepository: CategoryRepository) {
+    constructor( @inject(IOCTYPES.CATEGORY_REPOSITORY) private _categoryRepository: ICategoryRepository) {
 
     }
     addCategory(item: ICategory, callback?: (error: any, result: ICategory) => void): Promise<ICategory> {

@@ -1,4 +1,3 @@
-import { ProductService } from './../business';
 import { IProductService } from '../business';
 import {
     Request as req,
@@ -14,7 +13,7 @@ import 'reflect-metadata';
 export class ProductsController {
     public static url = '/products';
 
-    constructor( @inject(IOCTYPES.PRODUCT_SERVICE) private _productService: ProductService) {
+    constructor( @inject(IOCTYPES.PRODUCT_SERVICE) private _productService: IProductService) {
 
     }
     addProduct(req, res, next) {
