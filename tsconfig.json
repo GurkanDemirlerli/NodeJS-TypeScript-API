@@ -11,7 +11,7 @@
   },
   "include": [
     "*.ts",
-    "./playground/**/*"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules"
