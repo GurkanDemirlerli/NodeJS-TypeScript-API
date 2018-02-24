@@ -1,6 +1,6 @@
 import DataAccess = require('../Connection');
 import { Schema } from 'mongoose';
-import { ICategory } from '../../models/abstract/ICategory';
+import { ICategory } from '../../models';
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
 

@@ -1,7 +1,7 @@
 import { ICategoryService } from './';
 import { injectable, inject } from 'inversify';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
-import { ICategory } from '../models/abstract/ICategory';
+import { ICategory } from '../models';
 import { ICategoryRepository } from '../repository';
 import 'reflect-metadata';
 

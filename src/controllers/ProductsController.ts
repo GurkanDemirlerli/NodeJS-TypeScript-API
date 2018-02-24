@@ -6,8 +6,9 @@ import {
 } from 'express';
 import { injectable, inject } from 'inversify';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
-
+import { IProductResource } from '../models';
 import 'reflect-metadata';
+
 
 @injectable()
 export class ProductsController {
@@ -18,7 +19,15 @@ export class ProductsController {
     }
     addProduct(req, res, next) {
         this._productService.addProduct(req.body).then((product) => {
-            res.send(product);
+            res.send(<IProductResource>product);
+        }).catch((error) => {
+            res.send(error);
+        });
+    }
+
+    listProducts(req, res, next) {
+        this._productService.getAllProducts().then((products) => {
+            res.send(<IProductResource[]>products);
         }).catch((error) => {
             res.send(error);
         });

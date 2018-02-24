@@ -1,6 +1,12 @@
-//CONCRETE
+//#region DTO
+export { IProductResource } from './DataTransferObjects/abstract/IProductResource';
+
+export { ProductResource } from './DataTransferObjects/concrete/ProductResource';
+//#endregion
 
 
-//ABSTRACT
-export { IProduct } from './abstract/IProduct';
-export { ICategory } from './abstract/ICategory';
+//#region DAO
+export { ICategory } from './DataAccessObjects/abstract/ICategory';
+export { IProduct } from './DataAccessObjects/abstract/IProduct';
+export { IOrder } from './DataAccessObjects/abstract/IOrder';
+//#endregion

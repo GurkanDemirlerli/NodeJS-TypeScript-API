@@ -12,6 +12,7 @@ export class RouteBinder {
             .post((req, res, next) => categoriesController.addCategory(req, res, next));
 
         app.route('/api' + ProductsController.url)
-            .post((req, res, next) => productsController.addProduct(req, res, next));
+            .post((req, res, next) => productsController.addProduct(req, res, next))
+            .get((req, res, next) => productsController.listProducts(req, res, next));
     }
 }
