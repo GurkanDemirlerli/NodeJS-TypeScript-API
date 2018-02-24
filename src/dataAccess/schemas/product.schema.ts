@@ -13,8 +13,7 @@ class ProductSchema {
                 required: true
             },
             quantityPerUnit: {
-                type: Number,
-                required: true
+                type: Number
             },
             unitPrice: {
                 type: Number,

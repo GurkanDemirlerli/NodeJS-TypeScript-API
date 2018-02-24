@@ -1,3 +1,4 @@
+import { IQueryModel, QueryModel } from './../models';
 import { injectable, inject } from 'inversify';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
 import { IProductService } from 'src/business';
@@ -29,28 +30,31 @@ export class ProductService implements IProductService {
         return p;
     }
 
-    getAllProducts(): Promise<IProductResource[]> {
+    findProducts(query: IQueryModel): Promise<IProductResource[]> {
+        var queryModel = new QueryModel(query);
+        console.log(queryModel.limit);
         let p = new Promise<IProductResource[]>((resolve, reject) => {
             this._productRepository.find(
                 {
-                    // 'quantityPerUnit': {
-                    //     $in: [3, 125]
+                    // 'unitPrice': {
+                    //     $in: [5, 125]
                     // }
                 }, {
+                    '_id': 1,
                     'name': 1,
-                    '_id': 0,
-                    'unitPrice': 1
+                    'unitPrice': 1,
+                    'createdAt': 1
                 },
                 {
-                    // select: 'name',
                     populate: {
-                        path: 'category'
+                        path: 'category',
+                        select: 'name -_id'
                     },
                     sort: {
-                        'unitPrice': -1
+                        'createdAt': -1
                     },
-                    skip: 5,
-                    limit: 3
+                    skip: parseInt(queryModel.skip),
+                    limit: parseInt(queryModel.limit)
                 }).then((products: IProductResource[]) => {
                     resolve(<IProductResource[]>products);
                 }).catch((error) => {

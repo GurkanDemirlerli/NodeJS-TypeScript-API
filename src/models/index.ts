@@ -1,7 +1,10 @@
 //#region DTO
 export { IProductResource } from './DataTransferObjects/abstract/IProductResource';
+export { IQueryModel } from './DataTransferObjects/abstract/IQueryModel';
 
 export { ProductResource } from './DataTransferObjects/concrete/ProductResource';
+export { QueryModel } from './DataTransferObjects/concrete/QueryModel';
+
 //#endregion
 
 

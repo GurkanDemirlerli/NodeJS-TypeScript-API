@@ -6,6 +6,7 @@ import { GLOBAL } from './global'
 import { RouteBinder } from './routes'
 import { IOC } from './ioc'
 import 'reflect-metadata';
+import { ProductRoutes } from './routes/ProductRoutes';
 const mongoose = require('mongoose');
 
 
@@ -44,8 +45,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 	-- Routes
 ========================================================================== */
 
-const container = IOC.configureContainer()
-RouteBinder.configureRoutes(app, container)
+const container = IOC.configureContainer();
+// app.use("/api/products", ProductRoutes.configureRoutes(container));
+RouteBinder.configureRoutes(app, container);
 
 /* ==========================================================================
 	-- Server
