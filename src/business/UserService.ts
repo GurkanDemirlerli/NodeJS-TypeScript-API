@@ -19,7 +19,7 @@ export class UserService implements IUserService {
             this._userRepository.create(item).then((res: IUser) => {
                 resolve(<IUser>res);
             }).catch((error) => {
-                reject(error);
+                reject(error.message);
             });
         });
         return p;

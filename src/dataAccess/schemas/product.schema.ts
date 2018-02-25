@@ -38,23 +38,23 @@ class ProductSchema {
                 type: Schema.Types.ObjectId,
                 ref: 'Category'
             }
-            // ,
-            // supplier: {
-            //     type: Schema.Types.ObjectId,
-            //     ref: 'User'
-            // },
-            // likedBy: [{
-            //     type: Schema.Types.ObjectId,
-            //     ref: 'User'
-            // }],
-            // dislikedBy: [{
-            //     type: Schema.Types.ObjectId,
-            //     ref: 'User'
-            // }],
-            // comments: [{
-            //     type: Schema.Types.ObjectId,
-            //     ref: 'Comment'
-            // }]
+            ,
+            supplier: {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            likedBy: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }],
+            dislikedBy: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }],
+            comments: [{
+                type: Schema.Types.ObjectId,
+                ref: 'Comment'
+            }]
         });
         return schema;
     }

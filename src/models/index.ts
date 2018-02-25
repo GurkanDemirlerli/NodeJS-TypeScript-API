@@ -6,6 +6,7 @@ export { ISignupModel } from './DataTransferObjects/abstract/ISignupModel';
 
 export { ProductResource } from './DataTransferObjects/concrete/ProductResource';
 export { QueryModel } from './DataTransferObjects/concrete/QueryModel';
+export { SignupModel } from './DataTransferObjects/concrete/SignupModel';
 
 //#endregion
 
@@ -13,6 +14,9 @@ export { QueryModel } from './DataTransferObjects/concrete/QueryModel';
 //#region DAO
 export { ICategory } from './DataAccessObjects/abstract/ICategory';
 export { IProduct } from './DataAccessObjects/abstract/IProduct';
-export { IOrder } from './DataAccessObjects/abstract/IOrder';
 export { IUser } from './DataAccessObjects/abstract/IUser';
+export { IOrder } from './DataAccessObjects/abstract/IOrder';
+export { IOrderDetail } from './DataAccessObjects/abstract/IOrderDetail';
+export { IRole } from './DataAccessObjects/abstract/IRole';
+export { IComment } from './DataAccessObjects/abstract/IComment';
 //#endregion

@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import CategorySchema = require("../dataAccess/schemas/category.schema");
-import { ICategoryRepository } from './interfaces/ICategoryRepository';
+import { ICategoryRepository } from './';
 import { RepositoryBase } from './RepositoryBase';
 import { ICategory } from '../models';
 import 'reflect-metadata';

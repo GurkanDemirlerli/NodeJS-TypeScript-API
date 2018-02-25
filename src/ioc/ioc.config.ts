@@ -1,21 +1,55 @@
 import { Container } from 'inversify';
 import { IOCTYPES } from './ioc-types.enum';
 
-
+//#region IMPORTS
 //#region CONTROLLER IMPORTS
-import { CategoriesController, ProductsController, UsersController } from './../controllers';
+import {
+    CategoriesController,
+    ProductsController,
+    UsersController,
+    OrdersController,
+    CommentsController
+} from './../controllers';
 //#endregion
 
 //#region REPOSITORY IMPORTS
-import { CategoryRepository, ProductRepository, UserRepository } from './../repository';
-import { ICategoryRepository, IProductRepository, IUserRepository } from './../repository';
+import {
+    CategoryRepository,
+    ProductRepository,
+    UserRepository,
+    OrderRepository,
+    OrderDetailRepository,
+    RoleRepository,
+    CommentRepository
+} from './../repository';
+import {
+    ICategoryRepository,
+    IProductRepository,
+    IUserRepository,
+    IOrderRepository,
+    IOrderDetailRepository,
+    IRoleRepository,
+    ICommentRepository
+} from './../repository';
 //#endregion
 
-//#region  CATEGORY IMPORTS
-import { CategoryService, ProductService, UserService } from './../business';
-import { ICategoryService, IProductService, IUserService } from './../business';
+//#region  SERVICE IMPORTS
+import {
+    CategoryService,
+    ProductService,
+    UserService,
+    OrderService,
+    CommentService
+} from './../business';
+import {
+    ICategoryService,
+    IProductService,
+    IUserService,
+    IOrderService,
+    ICommentService
+} from './../business';
 //#endregion
-
+//#endregion
 
 export module IOC {
     export const container = new Container()
@@ -34,6 +68,14 @@ export module IOC {
         container
             .bind<UsersController>(UsersController)
             .toSelf()
+
+        container
+            .bind<OrdersController>(OrdersController)
+            .toSelf()
+
+        container
+            .bind<CommentsController>(CommentsController)
+            .toSelf()
         //#endregion
 
         //#region REPOSITORIES
@@ -49,6 +91,22 @@ export module IOC {
             .bind<IUserRepository>(IOCTYPES.USER_REPOSITORY)
             .to(UserRepository)
 
+        container
+            .bind<IOrderRepository>(IOCTYPES.ORDER_REPOSITORY)
+            .to(OrderRepository)
+
+        container
+            .bind<IOrderDetailRepository>(IOCTYPES.ORDERDETAIL_REPOSITORY)
+            .to(OrderDetailRepository)
+
+        container
+            .bind<IRoleRepository>(IOCTYPES.ROLE_REPOSITORY)
+            .to(RoleRepository)
+
+        container
+            .bind<ICommentRepository>(IOCTYPES.COMMENT_REPOSITORY)
+            .to(CommentRepository)
+
         //#endregion
 
         //#region SERVICES
@@ -63,6 +121,14 @@ export module IOC {
         container
             .bind<IUserService>(IOCTYPES.USER_SERVICE)
             .to(UserService)
+
+        container
+            .bind<IOrderService>(IOCTYPES.ORDER_SERVICE)
+            .to(OrderService)
+
+        container
+            .bind<ICommentService>(IOCTYPES.COMMENT_SERVICE)
+            .to(CommentService)
         //#endregion
 
         return container

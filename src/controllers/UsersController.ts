@@ -1,13 +1,9 @@
 import { IUserService } from '../business';
-import {
-    Request as req,
-    Response as res,
-    NextFunction as next
-} from 'express';
 import { injectable, inject } from 'inversify';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
-import { ISignupModel, ILoginModel } from '../models';
+import { ISignupModel, ILoginModel, SignupModel } from './../models';
 import 'reflect-metadata';
+import { validate } from 'class-validator';
 
 
 @injectable()
@@ -16,7 +12,22 @@ export class UsersController {
     constructor( @inject(IOCTYPES.USER_SERVICE) private _userService: IUserService) { }
 
     signup(req, res, next) {
-        let signupModel: ISignupModel = <ISignupModel>req.body;
+        let signupModel: SignupModel = new SignupModel(req.body)
+        // // signupModel = <SignupModel>req.body;
+        // await validate(signupModel).then((errors) => {
+        //     if (errors.length > 0) {
+        //         res.json({
+        //             'success': false,
+        //             'data': errors
+        //         });
+        //     }
+        // }).catch((error) => {
+        //     res.json({
+        //         'success': false,
+        //         'error': 'Unknown error'
+        //     });
+        // });
+        // let signupModel: ISignupModel = <ISignupModel>req.body;
         this._userService.signup(signupModel).then((data) => {
             res.json({
                 'success': true,

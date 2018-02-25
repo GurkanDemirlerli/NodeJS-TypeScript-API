@@ -1,32 +1,32 @@
 import DataAccess = require('../Connection');
 import { Schema } from 'mongoose';
-import { IOrderDetail } from '../../models';
+import { IComment } from '../../models';
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
 
-class OrderDetailSchema {
+class CommentSchema {
 
     static get schema() {
         var schema = new Schema({
-            order: {
+            owner: {
                 type: Schema.Types.ObjectId,
-                ref: 'Order'
+                ref: 'User'
             },
             product: {
                 type: Schema.Types.ObjectId,
                 ref: 'Product'
             },
-            unitPrice: {//figure out how to use money instead of number
-                type: Number,
+            content: {
+                type: String,
                 required: true
             },
-            quantity: {
-                type: Number,
-                required: true
-            }//add discount field
+            createdAt: {
+                type: Date,
+                default: Date.now()
+            }
         });
         return schema;
     }
 }
-var schema = mongooseConnection.model<IOrderDetail>('OrderDetail', OrderDetailSchema.schema);
+var schema = mongooseConnection.model<IComment>('Comment', CommentSchema.schema);
 export = schema;

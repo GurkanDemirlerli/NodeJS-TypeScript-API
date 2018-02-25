@@ -1,4 +1,4 @@
-import { IProductRepository } from './interfaces/IProductRepository';
+import { IProductRepository } from './';
 import { injectable } from 'inversify';
 import ProductSchema = require("../dataAccess/schemas/product.schema");
 import { RepositoryBase } from './RepositoryBase';
