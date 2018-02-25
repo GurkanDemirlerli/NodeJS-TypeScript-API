@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
-import { ILoginModel } from './models/DataTransferObjects/abstract/ILoginModel';
+import { ILoginModel } from './../models';
 
-export class Authentication {
+export class AuthenticationService {
     public static checkAuthentication(req): Promise<ILoginModel | null> {
         let token: string = req.body.token || req.query.token ||
             req.get('x-access-token') || req.get('authentication') || req.get('authorization') || undefined;
@@ -29,7 +29,7 @@ export class Authentication {
     }
 
     public static authenticatedRoute(req, res, next): void {
-        Authentication.checkAuthentication(req).then(isAuth => {
+        AuthenticationService.checkAuthentication(req).then(isAuth => {
             if (isAuth) {
                 // the user has a proper token: let's call next
                 //console.log('isAuth-> ', isAuth )
@@ -43,4 +43,8 @@ export class Authentication {
             }
         });
     }
+
+    // public static provideToken(req, res, next) {
+
+    // }
 }

@@ -7,10 +7,10 @@ export interface IProduct extends mongoose.Document {
     unitsInStock: number;
     createdAt: Date;
     description: string;
-    category: string;
-    supplier: string;
     likedBy: string[];
     dislikedBy: string[];
     comments: string[];
     picture?: string;
+    category: string;
+    supplier: string;
 }

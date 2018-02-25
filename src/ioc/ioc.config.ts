@@ -3,17 +3,17 @@ import { IOCTYPES } from './ioc-types.enum';
 
 
 //#region CONTROLLER IMPORTS
-import { CategoriesController, ProductsController } from './../controllers';
+import { CategoriesController, ProductsController, UsersController } from './../controllers';
 //#endregion
 
 //#region REPOSITORY IMPORTS
-import { CategoryRepository, ProductRepository } from './../repository';
-import { ICategoryRepository, IProductRepository } from './../repository';
+import { CategoryRepository, ProductRepository, UserRepository } from './../repository';
+import { ICategoryRepository, IProductRepository, IUserRepository } from './../repository';
 //#endregion
 
 //#region  CATEGORY IMPORTS
-import { CategoryService, ProductService } from './../business';
-import { ICategoryService, IProductService } from './../business';
+import { CategoryService, ProductService, UserService } from './../business';
+import { ICategoryService, IProductService, IUserService } from './../business';
 //#endregion
 
 
@@ -30,6 +30,10 @@ export module IOC {
         container
             .bind<ProductsController>(ProductsController)
             .toSelf()
+
+        container
+            .bind<UsersController>(UsersController)
+            .toSelf()
         //#endregion
 
         //#region REPOSITORIES
@@ -41,6 +45,10 @@ export module IOC {
             .bind<IProductRepository>(IOCTYPES.PRODUCT_REPOSITORY)
             .to(ProductRepository)
 
+        container
+            .bind<IUserRepository>(IOCTYPES.USER_REPOSITORY)
+            .to(UserRepository)
+
         //#endregion
 
         //#region SERVICES
@@ -51,6 +59,10 @@ export module IOC {
         container
             .bind<IProductService>(IOCTYPES.PRODUCT_SERVICE)
             .to(ProductService)
+
+        container
+            .bind<IUserService>(IOCTYPES.USER_SERVICE)
+            .to(UserService)
         //#endregion
 
         return container
