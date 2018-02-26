@@ -11,23 +11,23 @@ export class UsersController {
 
     constructor( @inject(IOCTYPES.USER_SERVICE) private _userService: IUserService) { }
 
-    signup(req, res, next) {
-        let signupModel: SignupModel = new SignupModel(req.body)
-        // // signupModel = <SignupModel>req.body;
-        // await validate(signupModel).then((errors) => {
-        //     if (errors.length > 0) {
-        //         res.json({
-        //             'success': false,
-        //             'data': errors
-        //         });
-        //     }
-        // }).catch((error) => {
-        //     res.json({
-        //         'success': false,
-        //         'error': 'Unknown error'
-        //     });
-        // });
-        // let signupModel: ISignupModel = <ISignupModel>req.body;
+    async signup(req, res, next) {
+        let signupModel: SignupModel = new SignupModel(<ISignupModel>req.body)
+        console.log('XXXXXXXX');
+        await validate(signupModel).then((errors) => {
+            console.log(errors);
+            if (errors.length > 0) {
+                res.json({
+                    'success': false,
+                    'data': errors
+                });
+            }
+        }).catch((error) => {
+            res.json({
+                'success': false,
+                'error': 'Unknown error'
+            });
+        });
         this._userService.signup(signupModel).then((data) => {
             res.json({
                 'success': true,
