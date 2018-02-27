@@ -1,6 +1,7 @@
 import { UsersController } from './../controllers';
 import * as express from 'express';
 import { Container } from 'inversify';
+import { AuthenticationService } from './../business/';
 
 export class UserRoutes {
     public static configureRoutes(app: express.Express, container: Container): void {
@@ -12,8 +13,12 @@ export class UserRoutes {
         app.route('/api/users/login')
             .post((req, res, next) => usersController.login(req, res, next));
         app.route('/api/users/address')
-            .post((req, res, next) => usersController.addAddress(req, res, next));
+            .post(AuthenticationService.authenticatedRoute, (req, res, next) => usersController.addAddress(req, res, next));
         app.route('/api/users/address/:_id')
-            .post((req, res, next) => usersController.updateAddress(req, res, next));
+            .patch(AuthenticationService.authenticatedRoute, (req, res, next) => usersController.updateAddress(req, res, next));
+        app.route('/api/users/address/:_id')
+            .delete(AuthenticationService.authenticatedRoute, (req, res, next) => usersController.deleteAddress(req, res, next));
+        app.route('/api/users/myprofile')
+            .get(AuthenticationService.authenticatedRoute, (req, res, next) => usersController.getMyProfile(req, res, next));
     }
 }

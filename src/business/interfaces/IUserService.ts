@@ -5,4 +5,6 @@ export interface IUserService {
     login: (item: ILoginModel) => Promise<any>;
     addAddress: (item: CreateAddressModel) => Promise<any>;
     updateAddress: (_id: string, item: IAddress) => Promise<any>;
+    deleteAddress: (_id: string, user: string) => Promise<any>;
+    getMyProfile: (_id: string) => Promise<any>;
 }

@@ -118,4 +118,68 @@ export class UsersController {
             });
         }
     }
+
+    deleteAddress(req, res, next) {
+        try {
+            AuthenticationService.checkAuthentication(req)
+                .then(isAuth => {
+                    if (isAuth) {
+                        const user = isAuth._id;
+                        this._userService.deleteAddress(req.params._id, user).then((data) => {
+                            res.json({
+                                'success': true,
+                                'data': data
+                            });
+                        }).catch((error) => {
+                            res.json({
+                                'success': false,
+                                'error': error
+                            });
+                        });
+                    }
+                })
+        } catch (error) {
+            res.json({
+                'success': false,
+                'error': 'Unhandled error'
+            });
+        }
+    }
+
+    getMyProfile(req, res, next) {
+        try {
+            AuthenticationService.checkAuthentication(req)
+                .then(isAuth => {
+                    if (isAuth) {
+                        const user = isAuth._id;
+                        this._userService.getMyProfile(user).then((data) => {
+                            res.json({
+                                'success': true,
+                                'data': data
+                            });
+                        }).catch((error) => {
+                            res.json({
+                                'success': false,
+                                'error': error
+                            });
+                        });
+                    } else {
+                        res.json({
+                            'success': false,
+                            'error': 'UnAuthorized'
+                        });
+                    }
+                }).catch((error) => {
+                    res.json({
+                        'success': false,
+                        'error': error
+                    });
+                });
+        } catch (error) {
+            res.json({
+                'success': false,
+                'error': 'Unhandled error'
+            });
+        }
+    }
 }

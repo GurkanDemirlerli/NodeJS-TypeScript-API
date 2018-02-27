@@ -10,6 +10,7 @@ import * as jwt from 'jsonwebtoken';
 @injectable()
 export class UserService implements IUserService {
 
+
     constructor(
         @inject(IOCTYPES.USER_REPOSITORY) private _userRepository: IUserRepository,
         @inject(IOCTYPES.ADDRESS_REPOSITORY) private _addressRepository: IAddressRepository
@@ -81,6 +82,44 @@ export class UserService implements IUserService {
                 reject(error.message);
             });
 
+        });
+        return p;
+    }
+
+    deleteAddress(_id: string, user: string): Promise<any> {
+        let p = new Promise<any>((resolve, reject) => {
+            this._addressRepository.findById(_id).then((address) => {
+                if (user === address.user.toString()) {
+                    this._addressRepository.delete(_id).then((res) => {
+                        if (res) {
+                            resolve('Address Successfuly deleted');
+                        } else {
+                            reject('Address not found');
+                        }
+                    }).catch((error) => {
+                        reject(error.message);
+                    });
+                } else {
+                    reject('UnAuthorized, This is not your address');
+                }
+            }).catch((error) => {
+                reject(error.message);
+            });
+        });
+        return p;
+    }
+    //Change it, it cant be return user password vs vs
+    getMyProfile(_id: string): Promise<IUser> {
+        let p = new Promise<any>((resolve, reject) => {
+            this._userRepository.findById(_id).then((user) => {
+                if (user) {
+                    resolve(<IUser>user);
+                } else {
+                    reject('User Not Found');
+                }
+            }).catch((error) => {
+                reject(error.message);
+            });
         });
         return p;
     }
