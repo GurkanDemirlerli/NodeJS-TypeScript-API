@@ -1,4 +1,4 @@
-import { validate, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max, Matches, Equals, ValidateIf } from "class-validator";
+import { validate, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max, Matches, Equals, ValidateIf, NotEquals } from "class-validator";
 import { ISignupModel } from './../../';
 
 export class SignupModel implements ISignupModel {
@@ -15,30 +15,24 @@ export class SignupModel implements ISignupModel {
     @Matches(/^[a-zA-Z0-9]+$/, "Only alphanuremic characters allowed")
     userName: string;
 
-    @IsEmail()
+    @Matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     email: string;
 
+    // @Equals(this.password === this.passwordVerify)// PROBLEM: Search for how to use 
     @Matches(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/, "Password Must have at least one uppercase, lowercase, special character, and number")
     password: string;
 
+
     @Matches(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/, "Password Must have at least one uppercase, lowercase, special character, and number")
-    @ValidateIf(o => o.password === o.passwordVerify)
     passwordVerify: string;
 
 
     constructor(_signupModel: ISignupModel) {
-        // if (_signupModel.firstName)
         this.firstName = _signupModel.firstName;
-        // if (_signupModel.lastName)
         this.lastName = _signupModel.lastName;
-        // if (_signupModel.userName)
         this.userName = _signupModel.userName;
-        // if (_signupModel.email)
         this.email = _signupModel.email;
-        // if (_signupModel.password)
         this.password = _signupModel.password;
-        // if (_signupModel.passwordVerify)
         this.passwordVerify = _signupModel.passwordVerify;
     }
-
 }

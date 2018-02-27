@@ -1,9 +1,10 @@
 import { IUserService } from '../business';
 import { injectable, inject } from 'inversify';
 import { IOCTYPES } from '../ioc/ioc-types.enum';
-import { ISignupModel, ILoginModel, SignupModel } from './../models';
+import { ISignupModel, SignupModel, ILoginModel, LoginModel, CreateAddressModel, ICreateAddressModel, IAddress } from './../models';
 import 'reflect-metadata';
 import { validate } from 'class-validator';
+import { AuthenticationService } from '../business/';
 
 
 @injectable()
@@ -13,9 +14,15 @@ export class UsersController {
 
     async signup(req, res, next) {
         let signupModel: SignupModel = new SignupModel(<ISignupModel>req.body)
-        console.log('XXXXXXXX');
         await validate(signupModel).then((errors) => {
-            console.log(errors);
+            //#region TEMP Compare
+            if (signupModel.password !== signupModel.passwordVerify) {
+                res.json({
+                    'success': false,
+                    'error': 'Password and Verify not match'
+                });
+            }
+            //#endregion
             if (errors.length > 0) {
                 res.json({
                     'success': false,
@@ -42,7 +49,7 @@ export class UsersController {
     }
 
     login(req, res, next) {
-        let loginModel: ILoginModel = <ILoginModel>req.body;
+        let loginModel: LoginModel = new LoginModel(<ILoginModel>req.body)
         this._userService.login(loginModel).then((data) => {
             res.json({
                 'success': true,
@@ -56,12 +63,59 @@ export class UsersController {
         });
     }
 
-    // findProducts(req, res, next) {
-    //     let query: IQueryModel = req.query;
-    //     this._productService.findProducts(query).then((products) => {
-    //         res.send(<IProductResource[]>products);
-    //     }).catch((error) => {
-    //         res.send(error);
-    //     });
-    // }
+    addAddress(req, res, next) {
+        try {
+            AuthenticationService.checkAuthentication(req)
+                .then(isAuth => {
+                    if (isAuth) {
+                        let createAddressModel: CreateAddressModel = new CreateAddressModel(<ICreateAddressModel>req.body);
+                        createAddressModel.user = isAuth._id;
+                        this._userService.addAddress(createAddressModel).then((data) => {
+                            res.json({
+                                'success': true,
+                                'data': data
+                            });
+                        }).catch((error) => {
+                            res.json({
+                                'success': false,
+                                'error': error
+                            });
+                        });
+                    }
+                })
+        } catch (error) {
+            res.json({
+                'success': false,
+                'error': 'Unhandled error'
+            });
+        }
+    }
+
+    updateAddress(req, res, next) {
+        try {
+            AuthenticationService.checkAuthentication(req)
+                .then(isAuth => {
+                    if (isAuth) {
+                        const address: IAddress = <IAddress>req.body;
+                        address.user = isAuth._id;
+                        this._userService.updateAddress(req.params._id, <IAddress>req.body).then((data) => {
+                            res.json({
+                                'success': true,
+                                'data': data
+                            });
+                        }).catch((error) => {
+                            res.json({
+                                'success': false,
+                                'error': error
+                            });
+                        });
+                    }
+                })
+        } catch (error) {
+            res.json({
+                'success': false,
+                'error': 'Unhandled error'
+            });
+        }
+    }
 }

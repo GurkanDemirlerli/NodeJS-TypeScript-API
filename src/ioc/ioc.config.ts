@@ -20,7 +20,8 @@ import {
     OrderRepository,
     OrderDetailRepository,
     RoleRepository,
-    CommentRepository
+    CommentRepository,
+    AddressRepository
 } from './../repository';
 import {
     ICategoryRepository,
@@ -29,7 +30,8 @@ import {
     IOrderRepository,
     IOrderDetailRepository,
     IRoleRepository,
-    ICommentRepository
+    ICommentRepository,
+    IAddressRepository
 } from './../repository';
 //#endregion
 
@@ -106,6 +108,10 @@ export module IOC {
         container
             .bind<ICommentRepository>(IOCTYPES.COMMENT_REPOSITORY)
             .to(CommentRepository)
+
+        container
+            .bind<IAddressRepository>(IOCTYPES.ADDRESS_REPOSITORY)
+            .to(AddressRepository)
 
         //#endregion
 

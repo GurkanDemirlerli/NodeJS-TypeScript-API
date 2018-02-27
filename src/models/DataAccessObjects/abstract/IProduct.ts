@@ -2,7 +2,6 @@ import mongoose = require("mongoose");
 
 export interface IProduct extends mongoose.Document {
     name: string;
-    quantityPerUnit: number;
     unitPrice: number;// make this money
     unitsInStock: number;
     createdAt: Date;

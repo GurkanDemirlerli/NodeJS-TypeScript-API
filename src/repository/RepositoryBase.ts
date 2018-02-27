@@ -6,10 +6,10 @@ import { IRepositoryBase } from './interfaces/IRepositoryBase';
 
 @injectable()
 
-export abstract class RepositoryBase<T extends mongoose.Document>  implements IRepositoryBase<T> {
+export abstract class RepositoryBase<T extends mongoose.Document> implements IRepositoryBase<T> {
     private _model: mongoose.Model<mongoose.Document>;
 
-    constructor(@unmanaged() schemaModel: mongoose.Model<mongoose.Document>) {
+    constructor( @unmanaged() schemaModel: mongoose.Model<mongoose.Document>) {
         this._model = schemaModel;
     }
 
@@ -159,6 +159,26 @@ export abstract class RepositoryBase<T extends mongoose.Document>  implements IR
                 upsert: true
             };
             self._model.findOneAndUpdate(cond, item, options, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(<T>result);
+                }
+            });
+        });
+
+        return p;
+    }
+
+    findByIdAndPush(_id: string, item: any, callback?: (error: any, result: T) => void): Promise<T> {
+        let self = this;
+        let p = new Promise<T>((resolve, reject) => {
+            let options: mongoose.ModelFindOneAndUpdateOptions = {
+                'new': true
+            };
+            self._model.findByIdAndUpdate(_id, { $push: item }, options, (err, result) => {
+                console.log(item);
                 if (err) {
                     reject(err);
                 }

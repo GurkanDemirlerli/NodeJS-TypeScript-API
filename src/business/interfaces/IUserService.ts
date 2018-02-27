@@ -1,6 +1,8 @@
-import { ISignupModel, ILoginModel, IUser } from '../../models';
+import { ISignupModel, ILoginModel, IUser, CreateAddressModel, IAddress } from '../../models';
 
 export interface IUserService {
     signup: (item: ISignupModel) => Promise<IUser>;
     login: (item: ILoginModel) => Promise<any>;
+    addAddress: (item: CreateAddressModel) => Promise<any>;
+    updateAddress: (_id: string, item: IAddress) => Promise<any>;
 }

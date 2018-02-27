@@ -12,50 +12,43 @@ class UserSchema {
             firstName: {
                 type: String,
                 required: true,
-                minlength: [5, 'first name > 5'],
-                maxLength: [30, 'first name < 30']
+                minlength: 2,
+                maxLength: 20
             },
             lastName: {
                 type: String,
                 required: true,
-                minlength: [5, 'last name > 5'],
-                maxLength: [30, 'last name < 30'],
+                minlength: 2,
+                maxLength: 20
             },
             userName: {
                 type: String,
                 required: true,
                 unique: true,
-                lowercase: true
+                lowercase: true,
+                match: /^[a-zA-Z0-9]+$/,
+                minlength: 4,
+                maxlength: 15
             },
             email: {
                 type: String,
                 required: true,
                 unique: true,
-                match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Invalid Email']
+                match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             },
             password: {
                 type: String,
-                required: true
-            },
-            address: {
-                type: String
-            },
-            city: {
-                type: String
-            },
-            region: {
-                type: String
-            },
-            country: {
-                type: String
-            },
-            phone: {
-                type: String
+                required: true,
+                match: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/
             },
             createdAt: {
                 type: Date,
                 default: Date.now()
             },
+            addresses: [{
+                type: Schema.Types.ObjectId,
+                ref: 'Address'
+            }],
             products: [{
                 type: Schema.Types.ObjectId,
                 ref: 'Product'

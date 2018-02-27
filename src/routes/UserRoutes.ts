@@ -11,5 +11,9 @@ export class UserRoutes {
             .post((req, res, next) => usersController.signup(req, res, next));
         app.route('/api/users/login')
             .post((req, res, next) => usersController.login(req, res, next));
+        app.route('/api/users/address')
+            .post((req, res, next) => usersController.addAddress(req, res, next));
+        app.route('/api/users/address/:_id')
+            .post((req, res, next) => usersController.updateAddress(req, res, next));
     }
 }

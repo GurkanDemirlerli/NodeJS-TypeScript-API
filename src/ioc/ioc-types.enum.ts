@@ -12,5 +12,7 @@ export enum IOCTYPES {
     ROLE_REPOSITORY = 'RoleRepository',
     ROLE_SERVICE = 'RoleService',
     COMMENT_REPOSITORY = 'CommentRepository',
-    COMMENT_SERVICE = 'CommentService'
+    COMMENT_SERVICE = 'CommentService',
+    ADDRESS_REPOSITORY = 'AddressRepository',
+    ADDRESS_SERVICE = 'AddressService'
 }

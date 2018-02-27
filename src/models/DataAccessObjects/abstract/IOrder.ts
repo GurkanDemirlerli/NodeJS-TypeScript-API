@@ -1,11 +1,15 @@
 import mongoose = require("mongoose");
-
 export interface IOrder extends mongoose.Document {
     owner: string;
-    shipAddress: string;
-    shipCity: string;
-    shipRegion: string;
-    shipCountry: string;
+    address: {
+        receiverFirstName: string;
+        receiverLastName: string;
+        content: string;
+        city: string;
+        region: string;
+        country: string;
+        phone: string;
+    }
     orderDetails: string;
     createdAt: Date;
 }
