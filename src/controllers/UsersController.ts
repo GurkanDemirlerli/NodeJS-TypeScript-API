@@ -182,4 +182,79 @@ export class UsersController {
             });
         }
     }
+    //So much code repeat, make a function for theese later
+    getAllMyAddresses(req, res, next) {
+        try {
+            AuthenticationService.checkAuthentication(req)
+                .then(isAuth => {
+                    if (isAuth) {
+                        const user = isAuth._id;
+                        this._userService.getAllMyAddresses(user).then((data) => {
+                            res.json({
+                                'success': true,
+                                'data': data
+                            });
+                        }).catch((error) => {
+                            res.json({
+                                'success': false,
+                                'error': error
+                            });
+                        });
+                    } else {
+                        res.json({
+                            'success': false,
+                            'error': 'UnAuthorized'
+                        });
+                    }
+                }).catch((error) => {
+                    res.json({
+                        'success': false,
+                        'error': error
+                    });
+                });
+        } catch (error) {
+            res.json({
+                'success': false,
+                'error': 'Unhandled error'
+            });
+        }
+    }
+
+    getMyAddress(req, res, next) {
+        try {
+            AuthenticationService.checkAuthentication(req)
+                .then(isAuth => {
+                    if (isAuth) {
+                        const user = isAuth._id;
+                        const address = req.params._id;
+                        this._userService.getMyAddress(address, user).then((data) => {
+                            res.json({
+                                'success': true,
+                                'data': data
+                            });
+                        }).catch((error) => {
+                            res.json({
+                                'success': false,
+                                'error': error
+                            });
+                        });
+                    } else {
+                        res.json({
+                            'success': false,
+                            'error': 'UnAuthorized'
+                        });
+                    }
+                }).catch((error) => {
+                    res.json({
+                        'success': false,
+                        'error': error
+                    });
+                });
+        } catch (error) {
+            res.json({
+                'success': false,
+                'error': 'Unhandled error'
+            });
+        }
+    }
 }

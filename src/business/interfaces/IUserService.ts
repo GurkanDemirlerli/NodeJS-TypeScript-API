@@ -7,4 +7,6 @@ export interface IUserService {
     updateAddress: (_id: string, item: IAddress) => Promise<any>;
     deleteAddress: (_id: string, user: string) => Promise<any>;
     getMyProfile: (_id: string) => Promise<any>;
+    getAllMyAddresses: (user: string) => Promise<any>;
+    getMyAddress: (_id: string, user: string) => Promise<any>;
 }

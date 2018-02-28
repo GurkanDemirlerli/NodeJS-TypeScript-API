@@ -10,7 +10,6 @@ import * as jwt from 'jsonwebtoken';
 @injectable()
 export class UserService implements IUserService {
 
-
     constructor(
         @inject(IOCTYPES.USER_REPOSITORY) private _userRepository: IUserRepository,
         @inject(IOCTYPES.ADDRESS_REPOSITORY) private _addressRepository: IAddressRepository
@@ -44,6 +43,13 @@ export class UserService implements IUserService {
 
     addAddress(item: CreateAddressModel): Promise<any> {
         let p = new Promise<IAddress>((resolve, reject) => {
+            this._userRepository.findById(item.user).then((user) => {
+                if (user.addresses.length > 3) {
+                    reject('User cant have more than 3 addresses');
+                }
+            }).catch((error) => {
+                reject(error.messsage);
+            });
             this._addressRepository.create(item).then((res: IAddress) => {
                 this._userRepository.findByIdAndPush(res.user, { 'addresses': res._id }).then((userRes) => {
                     //make something optional
@@ -116,6 +122,36 @@ export class UserService implements IUserService {
                     resolve(<IUser>user);
                 } else {
                     reject('User Not Found');
+                }
+            }).catch((error) => {
+                reject(error.message);
+            });
+        });
+        return p;
+    }
+
+    getAllMyAddresses(user: string): Promise<any> {
+        let p = new Promise<any>((resolve, reject) => {
+            this._addressRepository.find({ 'user': user }, {}, {}).then((addresses) => {
+                if (user) {
+                    resolve(addresses);
+                } else {
+                    reject('User Not Found');
+                }
+            }).catch((error) => {
+                reject(error.message);
+            });
+        });
+        return p;
+    }
+
+    getMyAddress(_id: string, user: string): Promise<any> {
+        let p = new Promise<any>((resolve, reject) => {
+            this._addressRepository.findById(_id).then((address) => {
+                if (user === address.user.toString()) {
+                    resolve(address);
+                } else {
+                    reject('UnAuthorized, This is not your address');
                 }
             }).catch((error) => {
                 reject(error.message);
