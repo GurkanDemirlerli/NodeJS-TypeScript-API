@@ -11,5 +11,4 @@ export interface IProduct extends mongoose.Document {
     comments: string[];
     picture?: string;
     category: string;
-    supplier: string;
 }

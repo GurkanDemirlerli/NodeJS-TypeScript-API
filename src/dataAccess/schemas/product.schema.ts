@@ -34,11 +34,6 @@ class ProductSchema {
             category: {
                 type: Schema.Types.ObjectId,
                 ref: 'Category'
-            }
-            ,
-            supplier: {
-                type: Schema.Types.ObjectId,
-                ref: 'User'
             },
             likedBy: [{
                 type: Schema.Types.ObjectId,

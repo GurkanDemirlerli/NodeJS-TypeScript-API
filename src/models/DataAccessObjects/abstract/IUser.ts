@@ -8,5 +8,4 @@ export interface IUser extends mongoose.Document {
     password: string;
     addresses: string[];
     createdAt: Date;
-    products: string[];
 }

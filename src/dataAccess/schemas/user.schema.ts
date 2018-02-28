@@ -49,10 +49,6 @@ class UserSchema {
                 type: Schema.Types.ObjectId,
                 ref: 'Address'
             }],
-            products: [{
-                type: Schema.Types.ObjectId,
-                ref: 'Product'
-            }],
             orders: [{
                 type: Schema.Types.ObjectId,
                 ref: 'Order'
